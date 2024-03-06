@@ -19,6 +19,7 @@ public class Bovino {
     private Float valor_kg_venda;
     private Float custo_diario;
     private Float valor_liquido;
+    private Situacao situacao;
     
     private Raca raca;
     private Collection<Pesagem> pesagens;
@@ -112,6 +113,14 @@ public class Bovino {
 
     public void setPesagens(Collection<Pesagem> pesagens) {
         this.pesagens = pesagens;
+    }
+
+    public Situacao getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(Situacao situacao) {
+        this.situacao = situacao;
     }
     
     

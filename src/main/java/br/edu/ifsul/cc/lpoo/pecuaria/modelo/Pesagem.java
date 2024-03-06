@@ -6,8 +6,10 @@ package br.edu.ifsul.cc.lpoo.pecuaria.modelo;
  * @author telmo
  */
 public class Pesagem {
+    
     private Integer id;
     private String nome;
+    private Bovino bovino;
 
     public Pesagem() {
     }
@@ -27,6 +29,15 @@ public class Pesagem {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public Bovino getBovino() {
+        return bovino;
+    }
+
+    public void setBovino(Bovino bovino) {
+        this.bovino = bovino;
+    }
+    
     
     
 }
