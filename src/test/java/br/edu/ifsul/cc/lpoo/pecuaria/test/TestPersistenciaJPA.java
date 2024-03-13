@@ -3,6 +3,7 @@ package br.edu.ifsul.cc.lpoo.pecuaria.test;
 
 import br.edu.ifsul.cc.lpoo.pecuaria.modelo.Raca;
 import br.edu.ifsul.cc.lpoo.pecuaria.modelo.dao.PersistenciaJPA;
+import java.util.Collection;
 import org.junit.Test;
 
 /**
@@ -11,7 +12,7 @@ import org.junit.Test;
  */
 public class TestPersistenciaJPA {
     
-    //@Test
+    @Test
     public void testConexaoJPA(){
         //criar um objeto do tipo PersistenciaJPA.
         PersistenciaJPA jpa = new PersistenciaJPA();
@@ -44,7 +45,7 @@ public class TestPersistenciaJPA {
         }
     }
     //criar um novo teste para alterar um registro de Raca.
-    @Test
+    //@Test
     public void testAlteracaoRacaJPA() throws Exception {
         
         PersistenciaJPA jpa = new PersistenciaJPA();
@@ -69,7 +70,7 @@ public class TestPersistenciaJPA {
     
     //crar um novo teste para remover um registro de Raca.
     
-    @Test
+    //@Test
     public void testRemocaoRacaJPA() throws Exception{
         
         PersistenciaJPA jpa = new PersistenciaJPA();
@@ -90,6 +91,43 @@ public class TestPersistenciaJPA {
             System.out.println("testAlteracaoRacaJPA: nao conectou no BD ...");
                         
         }
+    }
+    
+     //criar um novo teste para gerar um registro de Raca.
+    //@Test
+    public void testPersistenciaRacaJPA() throws Exception {
+        //criar um objeto do tipo PersistenciaJPA.
+        PersistenciaJPA jpa = new PersistenciaJPA();
+        if(jpa.conexaoAberta()){
+            System.out.println("conectou no BD via jpa ...");
+            Collection<Raca> cltRaca = jpa.listRacas();
+            if(!cltRaca.isEmpty()){
+                for(Raca r : cltRaca){
+                    System.out.println("Raca encontrada - id:"+r.getId());
+                    r.setNome("Nome alterado");
+                    jpa.persist(r);//update
+                    System.out.println("Raca alterada - "+r.getNome());
+                    jpa.remover(r);//delete
+                    System.out.println("Raca removida - "+r.getId());
+                }
+            }else{
+                Raca r = new Raca();
+                r.setNome("teste 1");
+                jpa.persist(r);//insert
+                System.out.println("Cadastrou a raca id:"+r.getId());
+                r = new Raca();
+                r.setNome("teste 2");
+                jpa.persist(r);
+                System.out.println("Cadastrou a raca id:"+r.getId());
+            }
+            
+            jpa.fecharConexao();
+        }else{
+            System.out.println("nao conectou no BD ...");
+                        
+        }        
+        
+        
     }
     
 }

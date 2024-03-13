@@ -1,15 +1,30 @@
 package br.edu.ifsul.cc.lpoo.pecuaria.modelo;
 
 import java.util.Calendar;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author telmo
  */
+@Entity
+@Table(name = "tb_funcionario")
+@DiscriminatorValue("C")
 public class Cliente extends Pessoa{
     
+    @Column(nullable = false, length = 11)
     private String cnpj;
+    
+    @Column(nullable = true)
+    @Temporal(TemporalType.DATE)
     private Calendar data_ultima_compra;
+    
+    
     private Float valor_compras;
 
     public Cliente() {

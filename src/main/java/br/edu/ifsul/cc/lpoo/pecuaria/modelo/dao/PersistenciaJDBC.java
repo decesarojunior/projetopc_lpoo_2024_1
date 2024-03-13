@@ -1,6 +1,9 @@
 
 package br.edu.ifsul.cc.lpoo.pecuaria.modelo.dao;
 
+import br.edu.ifsul.cc.lpoo.pecuaria.modelo.Raca;
+import java.util.Collection;
+
 /**
  *
  * @author telmo
@@ -34,6 +37,11 @@ public class PersistenciaJDBC implements InterfacePersistencia {
 
     @Override
     public void remover(Object o) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Collection<Raca> listRacas() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

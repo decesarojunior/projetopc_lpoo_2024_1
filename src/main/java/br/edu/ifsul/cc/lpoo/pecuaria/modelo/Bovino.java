@@ -1,29 +1,76 @@
 
 package br.edu.ifsul.cc.lpoo.pecuaria.modelo;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Collection;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author telmo
  */
-public class Bovino {
+@Entity
+@Table(name = "tb_bovino")
+public class Bovino implements Serializable {
     
+    @Id
+    @SequenceGenerator(name = "seq_bovino", sequenceName = "seq_bovino_id", allocationSize = 1)
+    @GeneratedValue(generator = "seq_bovino", strategy = GenerationType.SEQUENCE)   
     private Integer id;
-    private Calendar data_inicio;
-    private Calendar data_fim;
-    private Float peso_chegada;
-    private Float peso_atual;
-    private Float valor_kg_compra;
-    private Float valor_kg_venda;
-    private Float custo_diario;
-    private Float valor_liquido;
-    private Situacao situacao;
     
-    private Raca raca;
-    private Collection<Pesagem> pesagens;
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Calendar data_inicio;//obrigatorio
+    
+    @Column(nullable = true)
+    @Temporal(TemporalType.DATE)
+    private Calendar data_fim;//opcional
+    
+    @Column(nullable = false, precision = 2)
+    private Float peso_chegada;//obrigatorio
+    
+    @Column(nullable = true, precision = 2)
+    private Float peso_atual;//não obrigatorio
+    
+    @Column(nullable = false, precision = 2)
+    private Float valor_kg_compra;//obrigatorio
+    
+    @Column(nullable = true, precision = 2)
+    private Float valor_kg_venda;//não obrigatorio
+    
+    @Column(nullable = false, precision = 2)
+    private Float custo_diario;//obrigatorio
+    
+    @Column(nullable = true, precision = 2)
+    private Float valor_liquido;//opcional
+    
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Situacao situacao;//associação
+    
+    @ManyToOne
+    @JoinColumn(name = "raca_id", nullable = false)
+    private Raca raca;//associação
+    
+    //mappedBy deve apontar para a referencia de bovino dentro de Pesagem.
+    @OneToMany(mappedBy = "bovino")
+    private Collection<Pesagem> pesagens;//agregação por composição.
 
+    
     public Bovino() {
     }
 
